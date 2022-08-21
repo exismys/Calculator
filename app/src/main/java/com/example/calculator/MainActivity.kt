@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import net.objecthunter.exp4j.ExpressionBuilder
 
 class MainActivity : AppCompatActivity() {
     private lateinit var workingTextView: TextView
@@ -30,6 +31,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onClickEqual(view: View) {
-        resultTextView.text = "Result"
+        val expression = ExpressionBuilder(workingTextView.text as String?).build()
+        try {
+            val result = expression.evaluate()
+            resultTextView.text = result.toString()
+        } catch (ex: Exception) {
+            resultTextView.text = "Error"
+        }
+
     }
 }
